@@ -19,9 +19,9 @@ emissions_vs_year <- NEI %>%
   summarize(sum(Emissions))
 
 # cross-check
-# sum(NEI[NEI$year == '1999','Emissions'])
+# sum(NEI[NEI$year == '2008','Emissions'])
 
 png(filename = "plot1.png", width = 480, height = 480, units = "px")
 plot(emissions_vs_year$'sum(Emissions)' ~ emissions_vs_year$year, type='l', lty = 1, lwd = 5, col = 4,
-     xlab = 'Year', ylab = 'Emissions', main = 'Emissions vs. Year')
+     xlab = 'Year', ylab = 'Emissions', main = 'Total PM2.5 Emissions vs. Year')
 dev.off()
