@@ -8,24 +8,25 @@ SCC <- readRDS("Source_Classification_Code.rds")
 # Question 3
 # Across the United States, how have emissions from coal combustion-related sources changed from 1999–2008
 
+# find indices for Short.Names in SCC with the string 'coal' in them
+indices_comb_coal <- grep(pattern = 'Comb.*Coal|Coal*Comb', SCC$Short.Name)
+# find corresponding indices in NEI
+indices_nei <- which(NEI$SCC %in% SCC$SCC[indices_comb_coal])
+
+
+
+
 # summarize
 library('dplyr')
-baltimore <- NEI %>%
-  filter(fips == "24510") %>%
-  group_by(type, year) %>%
+usa <- NEI[indices_nei,] %>%
+  group_by(year) %>%
   summarize(sum(Emissions))
-names(baltimore)[3] = "total_emissions"
+names(usa)[2] = "coal_emissions"
 
-# cross check befor running summarize 
-# > filter(baltimore, year == "1999", type == "POINT")$Emissions
-# [1]  6.532 78.880  0.920 10.376 10.859 83.025  6.290 28.828 24.736 40.590  0.232  3.290  2.237
-# > sum(filter(baltimore, year == "1999", type == "POINT")$Emissions)
-# [1] 296.795
 
 # plot
 library(ggplot2)
-png(filename = "plot4.png", width = 480, height = 480, units = "px")
-g <- ggplot(baltimore, aes(x = year, y = total_emissions))
-g + geom_point() + facet_grid(. ~ type) + geom_smooth(method = "lm", se = FALSE) +
-  labs(x = "Year") +  labs(y = "Emissions") + labs(title = "Emissions in Baltimore vs. year for each emission type")
-dev.off()
+g <- ggplot(usa, aes(x = year, y = coal_emissions))
+g + geom_point() + geom_smooth(method = "lm", se = FALSE) +
+  labs(x = "Year") +  labs(y = "Coal Combustion Emissions") + labs(title = "Coal combustion emissions accross USA vs. year")
+ggsave(file = "plot4.png")

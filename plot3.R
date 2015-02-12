@@ -26,8 +26,7 @@ names(baltimore)[3] = "total_emissions"
 
 # plot
 library(ggplot2)
-png(filename = "plot3.png", width = 960, height = 480, units = "px")
 g <- ggplot(baltimore, aes(x = year, y = total_emissions))
 g + geom_point() + facet_grid(. ~ type) + geom_smooth(method = "lm", se = FALSE) +
   labs(x = "Year") +  labs(y = "Emissions") + labs(title = "Emissions in Baltimore vs. year for each emission type")
-dev.off()
+ggsave(file = "plot3.png")
