@@ -6,7 +6,15 @@ NEI <- readRDS("summarySCC_PM25.rds")
 SCC <- readRDS("Source_Classification_Code.rds")
 
 # Question 4
-# Across the United States, how have emissions from coal combustion-related sources changed from 1999–2008
+# How have emissions from motor vehicle sources changed from 1999–2008 in Baltimore City?
+# 
+# Question 5
+# Compare emissions from motor vehicle sources in Baltimore City with emissions
+# from motor vehicle sources in Los Angeles County, California (fips == "06037").
+# Which city has seen greater changes over time in motor vehicle emissions?
+
+
+
 
 # find indices for Short.Names in SCC with the string 'coal' in them
 indices_comb_coal <- grep(pattern = 'Comb.*Coal|Coal*Comb', SCC$Short.Name)
