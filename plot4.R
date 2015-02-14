@@ -28,5 +28,6 @@ names(usa)[2] = "coal_emissions"
 library(ggplot2)
 g <- ggplot(usa, aes(x = year, y = coal_emissions))
 g + geom_point() + geom_smooth(method = "lm", se = FALSE) +
-  labs(x = "Year") +  labs(y = "Coal Combustion Emissions") + labs(title = "Coal combustion emissions accross USA vs. year")
+  labs(x = "Year") +  labs(y = "Coal Combustion Emissions") +
+  labs(title = "Coal combustion emissions accross USA vs. year")
 ggsave(file = "plot4.png")
